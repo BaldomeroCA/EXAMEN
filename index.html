@@ -1,18 +1,90 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <title>Desarrollo Hidrocálido - Ejemplo React JS</title>
-    <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+<html ng-app="searchApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Cinetflix</title>
+        <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+        <!-- Incluir Bootstrap -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Animate.css -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- Incluir AngularJS -->
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/app.js"></script>
+   
+    </head>    
+    <body>
 
-  </head>
-  <body>
-    <div id="root" class="container"></div>
-    <script src="lib/react.js"></script>
-    <script src="lib/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-    <script type="text/json" src='js/datos.json'></script>    
-    <script type="text/babel" src="js/main.js"></script>    
-  </body>
+        <div class="principal-div">
+          <h1 class="h1"><center>CINETFLIX</center></h1>
+        </div>
+        
+        <div class="container" ng-controller="listCtrl">
+     
+            <hr>
+
+            <div class="row tab">
+                Search:
+                <br>
+                    <input type="text" ng-model="search.title" class="form-control" placeholder="Type to search">
+                <br>
+
+                Categories:
+                <br>
+                <select class="form-control" ng-model="search.genres">
+                <option value="">All</option>
+                <option value="action">Action</option>
+                <option value="crime">Crime</option>
+                <option value="terror">Terror</option>
+                <option value="drama">Drama</option>
+                <option value="adventure">Adventure</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="horror">Horror</option>
+                <option value="romance">Romance</option>
+                <option value="thriller">Thriller</option>
+
+        </select>
+            </div>
+
+            <table class="table table-striped">
+                <tr>
+                    <td>Poster</td>
+                    <td>Title</td>
+                    <td>Year</td>
+                    <td>Genre</td>
+                    <td>Actors</td>
+                    
+                    
+                </tr>
+                <tr ng-repeat="movie in movies | filter:search">
+                    <td><a href="#openModal/{{movie.id}}/{{movie.title}}/{{movie.posterurl}}/{{movie.year}}/{{movie.duration}}/{{movie.genres}}/{{movie.storyline}}/{{movie.actors}}/{{movie.releaseDate}}"><img ng-src="{{ movie.posterurl }}" class="avatar img-circle">
+                        <div id="openModal/{{movie.id}}/{{movie.title}}/{{movie.posterurl}}/{{movie.year}}/{{movie.duration}}/{{movie.genres}}/{{movie.storyline}}/{{movie.actors}}/{{movie.releaseDate}}" class="modalDialog">
+	                       <div>
+		                      <a href="#close" title="Close" class="close">X</a>
+                               <center><img src="{{movie.posterurl}}" class="image">
+		                      <h2>{{movie.title}}</h2>
+                                   <p>Release date: {{movie.releaseDate}}</p>
+                                   <p>{{movie.duration}}</p>
+                                   <span class="p1">{{ movie.genres[0] }}, {{movie.genres[1]}}, {{movie.genres[2]}}</span>
+                                   
+                              </center>
+                               <h3>Sinopsis</h3>
+                               <p>{{movie.storyline}}</p>
+                               <h3>Cast:</h3>
+                               <p>{{ movie.actors[0] }}, {{movie.actors[1]}}, {{movie.actors[2]}}</p>
+		
+	                       </div>
+                        </div>
+                        </a></td>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.year }}</td>
+                    <td>{{ movie.genres[0] }}, {{movie.genres[1]}}, {{movie.genres[2]}}</td>
+                    <td>{{ movie.actors[0] }}, {{movie.actors[1]}}, {{movie.actors[2]}}</td>
+                        
+                </tr>
+            </table>
+
+        </div>
+
+    </body>
 </html>
